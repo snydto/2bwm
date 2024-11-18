@@ -59,6 +59,7 @@ static const char *atomnames[NB_ATOMS][1] = {
 xcb_atom_t ATOM[NB_ATOMS];
 ///---Functions prototypes---///
 static void run(void);
+static void autostart(void);
 static bool setup(int);
 static void install_sig_handlers(void);
 static void start(const Arg *);
@@ -3131,7 +3132,10 @@ confignotify(xcb_generic_event_t *ev)
 void
 run(void)
 {
-	sigcode = 0;
+	
+  sigcode = 0;
+  
+  autostart();
 
 	while (0 == sigcode) {
 		/* the WM is running */
@@ -3161,6 +3165,17 @@ run(void)
 		sigcode = 0;
 		twobwm_restart();
 	}
+}
+
+/* Starts all programs in the autostartPrograms Array with the method 
+ * start(const Arg *). This Array is located in the <config.h> lib. */
+void
+autostart(void)
+{
+        for (int i = 0; autostartPrograms[i] != NULL; i++) {
+                const Arg argCurrent = {.com = autostartPrograms[i]};
+                start(&argCurrent);
+        }
 }
 
 /* Get a defined atom from the X server. */

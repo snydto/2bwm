@@ -41,6 +41,18 @@ static const uint8_t borders[] = {3,5,5,4};
 static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
 static const char *menucmd[]   = { "", NULL };
+///---Autostart Programs---///
+/* All programs added here will be started when 2bwm is run for the first time.
+ * Just create a String Array containing the commands to start the program and
+ * add it to the autostartPrograms Array.
+ * 
+ * Adding a program to autostart can be done like this:
+ *
+ * const char *polybar[]  = {"polybar", NULL};
+ *
+ * const char **autostartPrograms[] = {polybar, NULL}; 
+ */
+const char **autostartPrograms[] = {NULL};
 ///--Custom foo---///
 static void halfandcentered(const Arg *arg)
 {
